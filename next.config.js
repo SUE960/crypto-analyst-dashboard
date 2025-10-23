@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  experimental: {
-    appDir: true,
-  },
+  // Vercel에서 자동으로 최적화됨
 }
 
 module.exports = nextConfig
