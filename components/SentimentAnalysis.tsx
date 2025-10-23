@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { supabase, TweetSentiment } from '@/lib/supabase'
-import { MessageSquare, Heart, Retweet, TrendingUp, TrendingDown } from 'lucide-react'
+import { MessageSquare, Heart, Repeat, TrendingUp, TrendingDown } from 'lucide-react'
 
 export default function SentimentAnalysis() {
   const [tweets, setTweets] = useState<TweetSentiment[]>([])
