@@ -7,7 +7,11 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "https://goeqmhurrhgwmazaxfpm.supabase.co",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase_anon_key"
+    "NEXT_PUBLIC_SUPABASE_URL": "https://goeqmhurrhgwmazaxfpm.supabase.co"
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
   }
 }
