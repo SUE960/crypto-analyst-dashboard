@@ -56,12 +56,8 @@ Supabase에서 `supabase-schema.sql` 파일의 SQL을 실행하여 데이터베�
 
 ## 배포
 
-Vercel에 배포하려면:
-
-1. GitHub에 프로젝트 푸시
-2. Vercel에서 프로젝트 연결
-3. 환경 변수 설정
-4. 배포 완료
+Vercel
+https://crypto-analyst-dashboard-akm5fo5ci-jisukangs-projects-3044b26f.vercel.app/
 
 ## 📋 프로젝트 문서
 
