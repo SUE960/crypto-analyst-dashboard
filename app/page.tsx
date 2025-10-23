@@ -9,6 +9,7 @@ import PriceChart from '@/components/PriceChart'
 import AnalystTargets from '@/components/AnalystTargets'
 import SentimentAnalysis from '@/components/SentimentAnalysis'
 import CorrelationAnalysis from '@/components/CorrelationAnalysis'
+import SupabaseConnectionTest from '@/components/SupabaseConnectionTest'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -136,11 +137,12 @@ export default function Home() {
 
       {/* 메인 콘텐츠 */}
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">개요</TabsTrigger>
           <TabsTrigger value="analysts">애널리스트</TabsTrigger>
           <TabsTrigger value="sentiment">감정 분석</TabsTrigger>
           <TabsTrigger value="correlation">상관성 분석</TabsTrigger>
+          <TabsTrigger value="setup">Supabase 설정</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
@@ -177,6 +179,10 @@ export default function Home() {
 
         <TabsContent value="correlation">
           <CorrelationAnalysis />
+        </TabsContent>
+
+        <TabsContent value="setup">
+          <SupabaseConnectionTest />
         </TabsContent>
       </Tabs>
     </div>
