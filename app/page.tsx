@@ -3,14 +3,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import Header from '@/components/Header'
-import { 
-  CompositeIndexCard, 
-  AltcoinIndexCard, 
-  CryptoAnalyst10Card, 
-  CryptoAnalyst30Card, 
-  BitcoinGroupCard, 
-  EthereumGroupCard 
-} from '@/components/IndexCards'
 import ExchangeRatesSection from '@/components/ExchangeRates'
 import WeeklyGainersSection from '@/components/WeeklyGainers'
 import NewsSection from '@/components/NewsSection'
@@ -79,16 +71,6 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* 코인 선택 배너 */}
         <CoinBanner selectedCoin={selectedCoin} onCoinSelect={setSelectedCoin} />
-        
-        {/* 종합지수 및 알트코인지수 섹션 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-          <CompositeIndexCard />
-          <AltcoinIndexCard />
-          <CryptoAnalyst10Card />
-          <CryptoAnalyst30Card />
-          <BitcoinGroupCard />
-          <EthereumGroupCard />
-        </div>
 
         {/* 메인 콘텐츠 그리드 */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
