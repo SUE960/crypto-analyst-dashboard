@@ -2,6 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
+import Header from '@/components/Header'
+import { 
+  CompositeIndexCard, 
+  AltcoinIndexCard, 
+  CryptoAnalyst10Card, 
+  CryptoAnalyst30Card, 
+  BitcoinGroupCard, 
+  EthereumGroupCard 
+} from '@/components/IndexCards'
+import ExchangeRatesSection from '@/components/ExchangeRates'
+import WeeklyGainersSection from '@/components/WeeklyGainers'
+import NewsSection from '@/components/NewsSection'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TrendingUp, TrendingDown, Target, MessageSquare, BarChart3, Users } from 'lucide-react'
@@ -57,134 +69,154 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* 헤더 */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-foreground mb-2">
-          Crypto Analyst Dashboard
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          애널리스트 목표가와 소셜 미디어 감정 분석을 통한 암호화폐 투자 인사이트
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* 종합지수 및 알트코인지수 섹션 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <CompositeIndexCard />
+          <AltcoinIndexCard />
+          <CryptoAnalyst10Card />
+          <CryptoAnalyst30Card />
+          <BitcoinGroupCard />
+          <EthereumGroupCard />
+        </div>
 
-      {/* 통계 카드 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">추적 코인 수</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalCoins}</div>
-            <p className="text-xs text-muted-foreground">
-              실시간 모니터링 중
-            </p>
-          </CardContent>
-        </Card>
+        {/* 메인 콘텐츠 그리드 */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          {/* 왼쪽: 환율 및 상승률 */}
+          <div className="space-y-6">
+            <ExchangeRatesSection />
+            <WeeklyGainersSection />
+          </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">애널리스트 수</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalAnalysts}</div>
-            <p className="text-xs text-muted-foreground">
-              전문가 의견 수집
-            </p>
-          </CardContent>
-        </Card>
+          {/* 중앙: 기존 분석 도구들 */}
+          <div className="lg:col-span-2">
+            <Tabs defaultValue="overview" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-5">
+                <TabsTrigger value="overview">개요</TabsTrigger>
+                <TabsTrigger value="analysts">애널리스트</TabsTrigger>
+                <TabsTrigger value="sentiment">감정 분석</TabsTrigger>
+                <TabsTrigger value="correlation">상관성 분석</TabsTrigger>
+                <TabsTrigger value="setup">Supabase 설정</TabsTrigger>
+              </TabsList>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">분석된 트윗</CardTitle>
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalTweets}</div>
-            <p className="text-xs text-muted-foreground">
-              감정 분석 완료
-            </p>
-          </CardContent>
-        </Card>
+              <TabsContent value="overview" className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>가격 추이</CardTitle>
+                      <CardDescription>주요 코인의 가격 변화 추이</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <PriceChart />
+                    </CardContent>
+                  </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">평균 상관성</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.avgCorrelation > 0 ? (
-                <span className="text-green-500 flex items-center">
-                  <TrendingUp className="h-4 w-4 mr-1" />
-                  {(stats.avgCorrelation * 100).toFixed(1)}%
-                </span>
-              ) : (
-                <span className="text-red-500 flex items-center">
-                  <TrendingDown className="h-4 w-4 mr-1" />
-                  {(stats.avgCorrelation * 100).toFixed(1)}%
-                </span>
-              )}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              목표가 정확도
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>애널리스트 목표가</CardTitle>
+                      <CardDescription>전문가들의 목표가 예측</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <AnalystTargets />
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
 
-      {/* 메인 콘텐츠 */}
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="overview">개요</TabsTrigger>
-          <TabsTrigger value="analysts">애널리스트</TabsTrigger>
-          <TabsTrigger value="sentiment">감정 분석</TabsTrigger>
-          <TabsTrigger value="correlation">상관성 분석</TabsTrigger>
-          <TabsTrigger value="setup">Supabase 설정</TabsTrigger>
-        </TabsList>
+              <TabsContent value="analysts">
+                <AnalystTargets />
+              </TabsContent>
 
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <TabsContent value="sentiment">
+                <SentimentAnalysis />
+              </TabsContent>
+
+              <TabsContent value="correlation">
+                <CorrelationAnalysis />
+              </TabsContent>
+
+              <TabsContent value="setup">
+                <SupabaseConnectionTest />
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
+
+        {/* 하단: 뉴스 섹션 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <NewsSection />
+          
+          {/* 통계 카드 */}
+          <div className="grid grid-cols-2 gap-4">
             <Card>
-              <CardHeader>
-                <CardTitle>가격 추이</CardTitle>
-                <CardDescription>주요 코인의 가격 변화 추이</CardDescription>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">추적 코인 수</CardTitle>
+                <BarChart3 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <PriceChart />
+                <div className="text-2xl font-bold">{stats.totalCoins}</div>
+                <p className="text-xs text-muted-foreground">
+                  실시간 모니터링 중
+                </p>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle>애널리스트 목표가</CardTitle>
-                <CardDescription>전문가들의 목표가 예측</CardDescription>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">애널리스트 수</CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <AnalystTargets />
+                <div className="text-2xl font-bold">{stats.totalAnalysts}</div>
+                <p className="text-xs text-muted-foreground">
+                  전문가 의견 수집
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">분석된 트윗</CardTitle>
+                <MessageSquare className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stats.totalTweets}</div>
+                <p className="text-xs text-muted-foreground">
+                  감정 분석 완료
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">평균 상관성</CardTitle>
+                <Target className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {stats.avgCorrelation > 0 ? (
+                    <span className="text-green-500 flex items-center">
+                      <TrendingUp className="h-4 w-4 mr-1" />
+                      {(stats.avgCorrelation * 100).toFixed(1)}%
+                    </span>
+                  ) : (
+                    <span className="text-red-500 flex items-center">
+                      <TrendingDown className="h-4 w-4 mr-1" />
+                      {(stats.avgCorrelation * 100).toFixed(1)}%
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  목표가 정확도
+                </p>
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
-
-        <TabsContent value="analysts">
-          <AnalystTargets />
-        </TabsContent>
-
-        <TabsContent value="sentiment">
-          <SentimentAnalysis />
-        </TabsContent>
-
-        <TabsContent value="correlation">
-          <CorrelationAnalysis />
-        </TabsContent>
-
-        <TabsContent value="setup">
-          <SupabaseConnectionTest />
-        </TabsContent>
-      </Tabs>
+        </div>
+      </div>
     </div>
   )
 }
