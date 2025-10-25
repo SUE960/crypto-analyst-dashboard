@@ -17,6 +17,7 @@ import NewsSection from '@/components/NewsSection'
 import InfluencerAnalysis from '@/components/InfluencerAnalysis'
 import CommunityAnalysis from '@/components/CommunityAnalysis'
 import SocialTrendsAnalysis from '@/components/SocialTrendsAnalysis'
+import CoinBanner from '@/components/CoinBanner'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TrendingUp, TrendingDown, Target, MessageSquare, BarChart3, Users } from 'lucide-react'
@@ -24,10 +25,10 @@ import PriceChart from '@/components/PriceChart'
 import AnalystTargets from '@/components/AnalystTargets'
 import SentimentAnalysis from '@/components/SentimentAnalysis'
 import CorrelationAnalysis from '@/components/CorrelationAnalysis'
-import SupabaseConnectionTest from '@/components/SupabaseConnectionTest'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
+  const [selectedCoin, setSelectedCoin] = useState('BTC')
   const [stats, setStats] = useState({
     totalCoins: 0,
     totalAnalysts: 0,
@@ -76,6 +77,9 @@ export default function Home() {
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* 코인 선택 배너 */}
+        <CoinBanner selectedCoin={selectedCoin} onCoinSelect={setSelectedCoin} />
+        
         {/* 종합지수 및 알트코인지수 섹션 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           <CompositeIndexCard />
@@ -97,14 +101,13 @@ export default function Home() {
           {/* 중앙: 기존 분석 도구들 */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-7">
+              <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="overview">개요</TabsTrigger>
                 <TabsTrigger value="analysts">애널리스트</TabsTrigger>
                 <TabsTrigger value="sentiment">감정 분석</TabsTrigger>
                 <TabsTrigger value="correlation">상관성 분석</TabsTrigger>
                 <TabsTrigger value="influencer">인플루언서</TabsTrigger>
                 <TabsTrigger value="community">커뮤니티</TabsTrigger>
-                <TabsTrigger value="setup">Supabase 설정</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-6">
@@ -149,10 +152,6 @@ export default function Home() {
 
               <TabsContent value="community">
                 <CommunityAnalysis />
-              </TabsContent>
-
-              <TabsContent value="setup">
-                <SupabaseConnectionTest />
               </TabsContent>
             </Tabs>
           </div>
