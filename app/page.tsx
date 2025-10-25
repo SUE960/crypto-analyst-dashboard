@@ -14,6 +14,9 @@ import {
 import ExchangeRatesSection from '@/components/ExchangeRates'
 import WeeklyGainersSection from '@/components/WeeklyGainers'
 import NewsSection from '@/components/NewsSection'
+import InfluencerAnalysis from '@/components/InfluencerAnalysis'
+import CommunityAnalysis from '@/components/CommunityAnalysis'
+import SocialTrendsAnalysis from '@/components/SocialTrendsAnalysis'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TrendingUp, TrendingDown, Target, MessageSquare, BarChart3, Users } from 'lucide-react'
@@ -94,11 +97,13 @@ export default function Home() {
           {/* 중앙: 기존 분석 도구들 */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-5">
+              <TabsList className="grid w-full grid-cols-7">
                 <TabsTrigger value="overview">개요</TabsTrigger>
                 <TabsTrigger value="analysts">애널리스트</TabsTrigger>
                 <TabsTrigger value="sentiment">감정 분석</TabsTrigger>
                 <TabsTrigger value="correlation">상관성 분석</TabsTrigger>
+                <TabsTrigger value="influencer">인플루언서</TabsTrigger>
+                <TabsTrigger value="community">커뮤니티</TabsTrigger>
                 <TabsTrigger value="setup">Supabase 설정</TabsTrigger>
               </TabsList>
 
@@ -138,11 +143,24 @@ export default function Home() {
                 <CorrelationAnalysis />
               </TabsContent>
 
+              <TabsContent value="influencer">
+                <InfluencerAnalysis />
+              </TabsContent>
+
+              <TabsContent value="community">
+                <CommunityAnalysis />
+              </TabsContent>
+
               <TabsContent value="setup">
                 <SupabaseConnectionTest />
               </TabsContent>
             </Tabs>
           </div>
+        </div>
+
+        {/* 소셜 미디어 트렌드 분석 섹션 */}
+        <div className="mb-6">
+          <SocialTrendsAnalysis />
         </div>
 
         {/* 하단: 뉴스 섹션 */}
