@@ -10,7 +10,7 @@ interface ExchangeRateProps {
   changePercent: number
 }
 
-export default function ExchangeRate({ country, pair, rate, change, changePercent }: ExchangeRateProps) {
+function ExchangeRate({ country, pair, rate, change, changePercent }: ExchangeRateProps) {
   const isUp = change >= 0
   const changeColor = isUp ? 'text-red-500' : 'text-blue-500'
   const changeIcon = isUp ? TrendingUp : TrendingDown

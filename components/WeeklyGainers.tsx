@@ -8,7 +8,7 @@ interface WeeklyGainerProps {
   gainPercent: number
 }
 
-export default function WeeklyGainer({ rank, name, ticker, pair, gainPercent }: WeeklyGainerProps) {
+function WeeklyGainer({ rank, name, ticker, pair, gainPercent }: WeeklyGainerProps) {
   return (
     <div className="flex items-center justify-between py-2 hover:bg-gray-50 rounded px-2">
       <div className="flex items-center space-x-3">

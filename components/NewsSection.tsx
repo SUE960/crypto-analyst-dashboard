@@ -7,7 +7,7 @@ interface NewsItemProps {
   time: string
 }
 
-export default function NewsItem({ title, time }: NewsItemProps) {
+function NewsItem({ title, time }: NewsItemProps) {
   return (
     <div className="py-2 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 rounded px-2">
       <p className="text-sm text-gray-900 mb-1">{title}</p>
