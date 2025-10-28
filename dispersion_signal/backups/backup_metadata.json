@@ -1,0 +1,13 @@
+{
+  "backups": [
+    {
+      "filename": "backup_full_20251026_144408.json.gz",
+      "backup_type": "full",
+      "timestamp": "2025-10-26T14:44:08.940982+00:00",
+      "size_bytes": 351,
+      "file_path": "backups/backup_full_20251026_144408.json.gz"
+    }
+  ],
+  "last_full_backup": "2025-10-26T14:44:08.940982+00:00",
+  "last_incremental_backup": null
+}
