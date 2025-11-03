@@ -1,0 +1,2 @@
+# Force Vercel cache invalidation
+# This file ensures Vercel rebuilds with latest dependencies
