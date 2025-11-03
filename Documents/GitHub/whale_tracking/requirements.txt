@@ -1,0 +1,29 @@
+# requirements.txt
+
+# Supabase 클라이언트
+supabase
+
+# 날짜/시간 처리
+python-dateutil>=2.8.0
+pytz
+
+# 로깅
+colorlog
+
+# 스케줄링
+schedule
+
+# 환경 변수
+python-dotenv
+
+# 데이터 처리
+pandas
+
+# HTTP 요청
+requests
+
+# 블록체인 상호작용 (Chainlink, Uniswap Pool 조회용)
+web3>=6.0.0
+
+# GraphQL (The Graph API용)
+# graphql-core>=3.2.0  # Phase 3에서 추가 예정
